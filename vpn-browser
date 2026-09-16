@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PROJECT_DIR="$HOME/speedify-browser"
+DOCKER_WAS_RUNNING=false
+
+cleanup() {
+    local exit_code=$?
+
+    trap - EXIT INT TERM
+
+    echo "Stopping VPN browser..."
+
+    cd "$PROJECT_DIR"
+    docker compose down >/dev/null 2>&1 || true
+
+    if [[ "$DOCKER_WAS_RUNNING" == false ]]; then
+        echo "Stopping Docker..."
+        sudo systemctl stop docker.service docker.socket
+    fi
+
+    exit "$exit_code"
+}
+
+trap cleanup EXIT INT TERM
+
+if systemctl is-active --quiet docker.service; then
+    DOCKER_WAS_RUNNING=true
+    echo "Docker is already running."
+else
+    echo "Starting Docker..."
+    sudo systemctl start docker.service
+fi
+
+echo "Waiting for Docker..."
+
+until docker info >/dev/null 2>&1; do
+    sleep 0.2
+done
+
+xhost +SI:localuser:root >/dev/null
+
+cd "$PROJECT_DIR"
+
+echo "Starting VPN browser..."
+docker compose up --abort-on-container-exit
