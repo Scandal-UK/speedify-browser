@@ -1,0 +1,31 @@
+services:
+  vpn-browser:
+    build: .
+    image: speedify-browser
+    container_name: speedify-browser
+
+    stdin_open: true
+    tty: true
+
+    devices:
+      - /dev/net/tun:/dev/net/tun
+
+    cap_add:
+      - NET_ADMIN
+
+    security_opt:
+      - seccomp=unconfined
+
+    sysctls:
+      net.ipv4.conf.all.rp_filter: "0"
+      net.ipv4.conf.default.rp_filter: "0"
+
+    environment:
+      DISPLAY: ${DISPLAY}
+
+    volumes:
+      - ./data/firefox:/root/.mozilla
+      - ./data/speedify/logs:/usr/share/speedify/logs
+      - ./data/speedify/keys:/usr/share/speedify/.keys
+      - ${HOME}/Downloads:/root/Downloads
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw

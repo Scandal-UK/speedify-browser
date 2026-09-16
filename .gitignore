@@ -1,0 +1,6 @@
+# Persistent application data
+data/
+
+# Docker/runtime noise
+*.log
+
