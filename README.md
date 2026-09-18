@@ -2,8 +2,9 @@
 
 A small Docker-based desktop setup that runs Firefox and qBittorrent
 through Speedify without routing the rest of the host through the VPN.
+The project began as an experiment to run Speedify VPN on CachyOS, even
+though it is not supported for ARCH systems.
 
-The project began as an experiment to isolate Firefox behind Speedify.
 qBittorrent was added later and now shares the same VPN session. Both
 applications start together; either can be closed independently, and
 Speedify remains active until both have exited.
