@@ -70,8 +70,19 @@ if [ "$CONNECTED" != true ]; then
     exit 1
 fi
 
-echo "Starting Firefox..."
+case "${1:-browser}" in
+    browser)
+        echo "Starting Firefox..."
+        firefox-esr
+        ;;
 
-# Firefox deliberately remains in the foreground.
-# Its lifetime controls the lifetime of the container.
-firefox-esr
+    torrent)
+        echo "Starting qBittorrent..."
+        qbittorrent
+        ;;
+
+    *)
+        echo "Unknown mode: $1"
+        exit 2
+        ;;
+esac

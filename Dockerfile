@@ -7,6 +7,8 @@ RUN apt-get update && apt-get install -y \
     gpg \
     dbus-x11 \
     firefox-esr \
+    iproute2 \
+    qbittorrent \
     sudo \
     && rm -rf /var/lib/apt/lists/*
 
@@ -26,3 +28,4 @@ COPY entrypoint.sh /usr/local/bin/vpn-browser-entrypoint
 RUN chmod +x /usr/local/bin/vpn-browser-entrypoint
 
 ENTRYPOINT ["/usr/local/bin/vpn-browser-entrypoint"]
+

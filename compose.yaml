@@ -29,3 +29,5 @@ services:
       - ./data/speedify/keys:/usr/share/speedify/.keys
       - ${HOME}/Downloads:/root/Downloads
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ./data/qbittorrent/config:/root/.config/qBittorrent
+      - ./data/qbittorrent/share:/root/.local/share/qBittorrent
