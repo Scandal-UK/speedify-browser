@@ -70,19 +70,19 @@ if [ "$CONNECTED" != true ]; then
     exit 1
 fi
 
-case "${1:-browser}" in
-    browser)
-        echo "Starting Firefox..."
-        firefox-esr
-        ;;
+echo "Starting qBittorrent..."
+qbittorrent &
+QBITTORRENT_PID=$!
 
-    torrent)
-        echo "Starting qBittorrent..."
-        qbittorrent
-        ;;
+echo "Starting Firefox..."
+firefox-esr &
+FIREFOX_PID=$!
 
-    *)
-        echo "Unknown mode: $1"
-        exit 2
-        ;;
-esac
+echo "Applications started."
+
+while kill -0 "$QBITTORRENT_PID" 2>/dev/null ||
+      kill -0 "$FIREFOX_PID" 2>/dev/null; do
+    sleep 1
+done
+
+echo "Firefox and qBittorrent have both exited."
