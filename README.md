@@ -119,6 +119,15 @@ Session\Interface=connectify0
 Session\InterfaceName=connectify0
 ```
 
+## Update software
+
+Update the container and software (ensure the container is closed before running);
+
+``` bash
+chmod +x install.sh
+./install.sh
+```
+
 ## qBittorrent VPN-loss behaviour
 
 The binding was tested with qBittorrent 4.5.2 by deliberately
