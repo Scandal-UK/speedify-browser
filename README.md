@@ -124,8 +124,8 @@ Session\InterfaceName=connectify0
 Update the container and software (ensure the container is closed before running);
 
 ``` bash
-chmod +x install.sh
-./install.sh
+chmod +x update.sh
+./update.sh
 ```
 
 ## qBittorrent VPN-loss behaviour
